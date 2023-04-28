@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row justify-content-md-center top">
+    <div class="col col-md-6">
+      {% for msg in get_flashed_messages() %}
+      <div>{{ msg }}</div>
+      {% endfor %}
+    
+      <form action="/feedback/{{fb.id}}/update" id="form-feedback" method="POST">
+        <label for="title">Title</label><br>
+        <input type="text" name="title" value="{{fb.title}}"><br>
+        <label for="content">Content</label><br>
+        <input type="text" name="content" value="{{fb.content}}" style="margin-bottom:1rem;"><br>
+        <button type="submit" class="btn btn-warning">Submit</button>
+        <a href="/users/{{session['username']}}" class="btn btn-secondary">Back</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

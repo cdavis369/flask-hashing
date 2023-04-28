@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-md-3 bg-warning user-info">
+      {% if user %}
+      <p><b>Username: {{user.username}}</b></p>
+      <p><b>Email: {{user.email}}</b></p>
+      <p><b>Name: {{user.first_name}} {{user.last_name}}</b></p>
+      <a href="/users/{{user.username}}/feedback/add" class="btn btn-secondary">Give Feedback</a>
+      {% else %}
+      <p>No user found</p>
+      {% endif %}
+    </div>
+    <div class="col col-md-4 bg-secondary">
+      <h4>Your Feedback</h4>
+      {% for fb in feedback %}
+      <p class="fb-title text-warning"><b>{{fb.title}}</b></p>
+      <p class="fb-content text-white">{{fb.content}}</p>
+      <div class="row justify-content-center">
+        <div class="col-2">
+          <a href="/feedback/{{fb.id}}/update" class="btn btn-warning" style="margin-bottom:1rem;">Edit</a>
+        </div>
+        <div class="col-2">
+          <form action="/feedback/{{fb.id}}/delete" method="POST">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+      
+
+      <!-- <a href="/feedback/{{fb.id}}/delete" class="btn btn-danger" style="margin-bottom:1rem;">Delete</a> -->
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
